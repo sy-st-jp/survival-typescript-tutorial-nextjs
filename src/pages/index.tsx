@@ -5,16 +5,24 @@ import { Image } from "../api/cat/types"
 
 const IndexPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
+    if (!loading) return
     const fetchImage = async () => {
-      setLoading(true)
       const images:Image[] = await apiClient.search()
       setImageUrl(images[0].url)
       setLoading(false)
     }
     fetchImage()
-  },[])
-  return <div>{loading || <img src={imageUrl}/>}</div>
+  },[loading])
+  const handleClick = () => {
+    setLoading(true)
+  }
+  return (
+    <div>
+      <button onClick={handleClick}>See other cats!</button>
+      <div>{loading || <img src={imageUrl}/>}</div>
+    </div>
+)
 }
 export default IndexPage
