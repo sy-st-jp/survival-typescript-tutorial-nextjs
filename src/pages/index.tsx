@@ -3,20 +3,19 @@ import { useEffect, useState } from "react"
 import { apiClient } from "../api/cat"
 import { Image } from "../api/cat/types"
 
-const IndexPage: NextPage = () => {
-  const [imageUrl, setImageUrl] = useState("")
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    if (!loading) return
-    const fetchImage = async () => {
-      const images:Image[] = await apiClient.search()
-      setImageUrl(images[0].url)
-      setLoading(false)
-    }
-    fetchImage()
-  },[loading])
-  const handleClick = () => {
+type Props = {
+  initialImageUrl: string
+}
+
+const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
+  const [imageUrl, setImageUrl] = useState(initialImageUrl)
+  const [loading, setLoading] = useState(false)
+  const handleClick = async () => {
     setLoading(true)
+    const newImages = await apiClient.search()
+    console.log(newImages[0])
+    setImageUrl(newImages[0].url)
+    setLoading(false)
   }
   return (
     <div>
@@ -26,3 +25,11 @@ const IndexPage: NextPage = () => {
 )
 }
 export default IndexPage
+
+export const getServerSideProps = async () => {
+  const images:Image[] = await apiClient.search()
+  const props = {
+    initialImageUrl: images[0].url
+  }
+  return { props }
+}
