@@ -1,5 +1,5 @@
 import { NextPage } from "next"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { apiClient } from "../api/cat"
 import { Image } from "../api/cat/types"
 
