@@ -1,4 +1,4 @@
-import { z } from "zod"
-import { image } from "../schema"
+import type { z } from "zod";
+import type { image } from "../schema";
 
-export type Image = z.infer<typeof image>
+export type Image = z.infer<typeof image>;
