@@ -13,7 +13,6 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
   const handleClick = async () => {
     setLoading(true)
     const newImages = await apiClient.search()
-    console.log(newImages[0])
     setImageUrl(newImages[0].url)
     setLoading(false)
   }
