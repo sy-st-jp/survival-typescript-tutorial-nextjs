@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { apiClient } from "../api/cat";
 import type { Image } from "../api/cat/types";
+import styles from "./index.module.css";
 
 type Props = {
 	initialImageUrl: string;
@@ -18,11 +19,13 @@ const IndexPage: NextPage<Props> = (props) => {
 		setLoading(false);
 	};
 	return (
-		<div>
-			<button type="button" onClick={handleClick}>
+		<div className={styles.page}>
+			<button type="button" onClick={handleClick} className={styles.button}>
 				See other cats!
 			</button>
-			<div>{loading || <img src={imageUrl} alt="cat images" />}</div>
+			<div className={styles.frame}>
+				{loading || <img src={imageUrl} alt="cat images" className={styles.img} />}
+			</div>
 		</div>
 	);
 };
