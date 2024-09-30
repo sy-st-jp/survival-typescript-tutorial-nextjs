@@ -7,7 +7,8 @@ type Props = {
   initialImageUrl: string
 }
 
-const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
+const IndexPage: NextPage<Props> = (props) => {
+  const { initialImageUrl } = props
   const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const [loading, setLoading] = useState(false)
   const handleClick = async () => {
